@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Home Page Controller
+# Home Controller
 class HomeController
   def index
     [
