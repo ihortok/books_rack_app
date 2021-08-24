@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_relative '../config/db'
+
 # Books Controller
 class BooksController
   def index
@@ -13,19 +15,16 @@ class BooksController
   private
 
   def index_body
-    {
-      1 => {
-        name: '1984',
-        author: 'George Orwell'
-      },
-      2 => {
-        name: 'Pride and Prejudice',
-        author: 'Jane Austin'
-      },
-      3 => {
-        name: 'Dracula',
-        author: 'Bram Stoker'
+    books = DB.new.connection.exec('SELECT * FROM books')
+    books_json = {}
+
+    books.each do |book|
+      books_json[book['id']] = {
+        name: book['name'],
+        author: book['author']
       }
-    }.to_json
+    end
+
+    books_json.to_json
   end
 end
