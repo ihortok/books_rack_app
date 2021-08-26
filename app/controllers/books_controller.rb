@@ -7,7 +7,7 @@ class BooksController
   def index
     [
       200,
-      { 'Contend-Type' => 'text/plain' },
+      { 'Content-Type' => 'text/plain' },
       [index_body]
     ]
   end

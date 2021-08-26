@@ -17,7 +17,7 @@ class Router
     when '/books'
       BooksController.new.index
     else
-      [404, { 'Contend-Type' => 'text/plain' }, ['404 Not Found']]
+      [404, { 'Content-Type' => 'text/plain' }, ['404 Not Found']]
     end
   end
 end
