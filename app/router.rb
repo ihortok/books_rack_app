@@ -8,14 +8,18 @@ Dir[File.join(__dir__, 'controllers', '*.rb')].each { |file| require_relative fi
 class Router
   def initialize(env)
     @path = env['PATH_INFO']
+    @method = env['REQUEST_METHOD']
   end
 
   def call
-    case @path
-    when '/'
+    if @path == '/'
       HomeController.new.index
-    when '/books'
+    elsif @path == '/books'
       BooksController.new.index
+    elsif @path == '/admin'
+      SessionController.new.new
+    elsif @path == '/admin/sign_in' && @method == 'POST'
+      SessionController.new.create
     else
       [404, { 'Content-Type' => 'text/plain' }, ['404 Not Found']]
     end
