@@ -9,15 +9,15 @@
 
   <h1>Sign In</h1>
 
-  <form action="admin/sign_in" method="post">
+  <form action="/session/create" method="post">
     <label>
       Email: <br>
-      <input type="email">
+      <input type="email" name="email">
     </label>
     <br>
     <label>
       Password: <br>
-      <input type="password">
+      <input type="password" name="password">
     </label>
     <br>
     <input type="submit">

@@ -8,13 +8,17 @@ class SessionController
     [
       200,
       { 'Content-Type' => 'text/html' },
-      [File.open('app/views/session/index.html').read],
       new_body
     ]
   end
 
-  def create
-    raise 'Implement me!'
+  def create(params:)
+    # TODO: implement session creation
+    [
+      200,
+      { 'Content-Type' => 'text/html' },
+      [params.to_json]
+    ]
   end
 
   private
@@ -22,7 +26,7 @@ class SessionController
   def new_body
     body = []
 
-    File.open('app/views/session/index.html').each { |line| body << line }
+    File.open('app/views/session/new.html').each { |line| body << line }
 
     body
   end

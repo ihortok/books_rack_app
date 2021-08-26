@@ -7,6 +7,7 @@ Dir[File.join(__dir__, 'controllers', '*.rb')].each { |file| require_relative fi
 # Router
 class Router
   def initialize(env)
+    @env = env
     @path = env['PATH_INFO']
     @method = env['REQUEST_METHOD']
   end
@@ -18,6 +19,10 @@ class Router
       BooksController.new.index
     elsif @path == '/admin'
       SessionController.new.new
+    elsif @method == 'GET' && @path == '/session/new'
+      SessionController.new.new
+    elsif @method == 'POST' && @path == '/session/create'
+      SessionController.new.create(params: Rack::Utils.parse_query(@env['rack.input'].gets))
     elsif @path == '/admin/sign_in' && @method == 'POST'
       SessionController.new.create
     else
