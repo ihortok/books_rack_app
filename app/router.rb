@@ -23,7 +23,9 @@ class Router
       SessionController.new.new
     elsif @method == 'POST' && @path == '/session/create'
       SessionController.new.create(params: Rack::Utils.parse_query(@env['rack.input'].gets))
-    elsif @path == '/admin/sign_in' && @method == 'POST'
+    elsif @method == 'POST' && @path == '/session/delete'
+      SessionController.new.delete
+    elsif @method == 'POST' && @path == '/admin/sign_in'
       SessionController.new.create
     else
       [404, { 'Content-Type' => 'text/plain' }, ['404 Not Found']]

@@ -43,6 +43,19 @@ class SessionController
     ]
   end
 
+  def delete
+    headers = { 'Content-Type' => 'text/html', 'Location' => '/' }
+
+    Rack::Utils.delete_cookie_header!(headers, 'user_id', { value: '', path: '/' })
+    Rack::Utils.delete_cookie_header!(headers, 'session_key', { value: '', path: '/' })
+
+    [
+      200,
+      headers,
+      []
+    ]
+  end
+
   private
 
   def new_body
