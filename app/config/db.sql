@@ -12,3 +12,14 @@ CREATE TABLE users (
   password VARCHAR(255) NOT NULL,
   admin BOOLEAN
 );
+
+CREATE TABLE sessions (
+  id serial PRIMARY KEY,
+  key VARCHAR(255),
+  user_id INT NOT NULL,
+  start_at TIMESTAMP NOT NULL,
+  terminate_at TIMESTAMP NOT NULL,
+  CONSTRAINT fk_user
+    FOREIGN KEY(user_id) 
+	    REFERENCES users(id)
+);
