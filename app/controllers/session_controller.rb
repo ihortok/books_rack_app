@@ -59,10 +59,6 @@ class SessionController
   private
 
   def new_body
-    body = []
-
-    File.open('app/views/session/new.html').each { |line| body << line }
-
-    body
+    [ERB.new(File.read('app/views/session/new.html.erb')).result(binding)]
   end
 end
