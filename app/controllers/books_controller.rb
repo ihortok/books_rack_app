@@ -5,9 +5,11 @@ require_relative '../config/db'
 # Books Controller
 class BooksController
   def index
+    headers = { 'Content-Type' => 'text/html' }
+
     [
       200,
-      { 'Content-Type' => 'text/plain' },
+      headers,
       [index_body]
     ]
   end
