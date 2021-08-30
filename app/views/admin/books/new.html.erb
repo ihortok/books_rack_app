@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New book</title>
+</head>
+<body>
+
+  <%= @header_partial %>
+
+  <h1>New book</h1>
+
+  <form action="/admin/books/create" method="post">
+    <label>
+      Name: <br>
+      <input type="text" name="book_name">
+    </label>
+    <br>
+    <label>
+      Author: <br>
+      <input type="text" name="author">
+    </label>
+    <br>
+    <input type="submit">
+  </form>
+  
+</body>
+</html>

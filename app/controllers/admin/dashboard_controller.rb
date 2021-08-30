@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require_relative '../../config/db'
-require_relative 'base_controller'
+require "#{ENV['APP_FULL_PATH']}/config/db"
+require "#{ENV['APP_FULL_PATH']}/controllers/admin/base_controller"
 
 module Admin
   # DashboardController
@@ -21,7 +21,7 @@ module Admin
     def index_body
       @books = DB.new.connection.exec('SELECT * FROM books')
 
-      @header_partial = ERB.new(File.read('app/views/admin/dashboard/_header.html.erb')).result(binding)
+      @header_partial = ERB.new(File.read('app/views/admin/_header.html.erb')).result(binding)
 
       [ERB.new(File.read('app/views/admin/dashboard/index.html.erb')).result(binding)]
     end
