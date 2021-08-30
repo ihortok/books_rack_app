@@ -5,7 +5,7 @@ require 'securerandom'
 require_relative '../config/db'
 
 # Books Controller
-class SessionController
+class SessionController < BaseController
   def new
     [
       200,
@@ -31,7 +31,7 @@ class SessionController
 
     session_sql = %{
       INSERT INTO sessions (key, user_id, start_at, terminate_at)
-      VALUES('#{BCrypt::Password.create(key)}', '#{user['id']}', '#{Time.now}', '#{Time.now + 3600 * 3}')
+      VALUES('#{BCrypt::Password.create(key)}', '#{user['id']}', '#{Time.now.utc}', '#{Time.now.utc + 3600 * 3}')
     }
 
     db.exec(session_sql)

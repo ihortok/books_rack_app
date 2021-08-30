@@ -15,19 +15,19 @@ class Router
 
   def call
     if @path == '/'
-      HomeController.new.index
+      HomeController.new(@env).index
     elsif @path == '/books'
-      BooksController.new.index
+      BooksController.new(@env).index
     elsif @method == 'GET' && @path == '/admin/dashboard'
-      Admin::DashboardController.new.index
+      Admin::DashboardController.new(@env).index
     elsif @method == 'GET' && @path == '/session/new'
-      SessionController.new.new
+      SessionController.new(@env).new
     elsif @method == 'POST' && @path == '/session/create'
-      SessionController.new.create(params: Rack::Utils.parse_query(@env['rack.input'].gets))
+      SessionController.new(@env).create(params: Rack::Utils.parse_query(@env['rack.input'].gets))
     elsif @method == 'POST' && @path == '/session/delete'
-      SessionController.new.delete
+      SessionController.new(@env).delete
     elsif @method == 'POST' && @path == '/admin/sign_in'
-      SessionController.new.create
+      SessionController.new(@env).create
     else
       [404, { 'Content-Type' => 'text/plain' }, ['404 Not Found']]
     end
