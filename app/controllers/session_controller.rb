@@ -7,6 +7,8 @@ require_relative '../config/db'
 # Books Controller
 class SessionController < BaseController
   def new
+    return new_redirect if user_authenticated?
+
     [
       200,
       { 'Content-Type' => 'text/html' },
@@ -24,7 +26,7 @@ class SessionController < BaseController
     return [401, {}, ['no user']] unless BCrypt::Password.new(user['password']) == params['password']
 
     key = SecureRandom.urlsafe_base64(10)
-    headers = { 'Content-Type' => 'text/html' }
+    headers = { 'Location' => '/admin/dashboard' }
 
     Rack::Utils.set_cookie_header!(headers, 'session_key', { value: key, path: '/' })
     Rack::Utils.set_cookie_header!(headers, 'user_id', { value: user['id'], path: '/' })
@@ -37,20 +39,20 @@ class SessionController < BaseController
     db.exec(session_sql)
 
     [
-      200,
+      301,
       headers,
-      [params.to_json]
+      []
     ]
   end
 
   def delete
-    headers = { 'Content-Type' => 'text/html', 'Location' => '/' }
+    headers = { 'Location' => '/' }
 
     Rack::Utils.delete_cookie_header!(headers, 'user_id', { value: '', path: '/' })
     Rack::Utils.delete_cookie_header!(headers, 'session_key', { value: '', path: '/' })
 
     [
-      200,
+      301,
       headers,
       []
     ]
@@ -60,5 +62,13 @@ class SessionController < BaseController
 
   def new_body
     [ERB.new(File.read('app/views/session/new.html.erb')).result(binding)]
+  end
+
+  def new_redirect
+    [
+      301,
+      { 'Location' => '/admin/dashboard' },
+      []
+    ]
   end
 end
