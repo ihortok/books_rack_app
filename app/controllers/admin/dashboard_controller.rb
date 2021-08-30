@@ -21,6 +21,8 @@ module Admin
     def index_body
       @books = DB.new.connection.exec('SELECT * FROM books')
 
+      @header_partial = ERB.new(File.read('app/views/admin/dashboard/_header.html.erb')).result(binding)
+
       [ERB.new(File.read('app/views/admin/dashboard/index.html.erb')).result(binding)]
     end
   end
