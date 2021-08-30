@@ -3,7 +3,7 @@
 require_relative '../config/db'
 
 # Books Controller
-class BooksController
+class BooksController < BaseController
   def index
     headers = { 'Content-Type' => 'text/html' }
 

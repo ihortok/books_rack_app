@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
+  <title>Books</title>
 </head>
 <body>
 
   <%= @header_partial %>
 
-  <h1>Dashboard</h1>
+  <h1>Books</h1>
 
   <table>
     <thead>
@@ -17,6 +17,7 @@
         <th>ID</th>
         <th>Name</th>
         <th>Author</th>
+        <th>Delete</th>
       </tr>
     </thead>
     <% @books.each do |book| %>
@@ -24,9 +25,17 @@
         <td><%= book['id'] %></td>
         <td><%= book['name'] %></td>
         <td><%= book['author'] %></td>
+        <td>
+          <form action="/admin/books/delete" method="post">
+            <input type="hidden" name="book_id" value="<%= book['id'] %>">
+            <input type="submit" value="X">
+          </form>
+        </td>
       </tr>
     <% end %>
   </table>
+
+  <a href="/admin/books/new">Add new book</a>
   
 </body>
 </html>

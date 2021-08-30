@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Home Controller
-class HomeController
+class HomeController < BaseController
   def index
     [
       200,
