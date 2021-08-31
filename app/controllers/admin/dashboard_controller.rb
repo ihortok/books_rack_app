@@ -20,6 +20,7 @@ module Admin
 
     def index_body
       @books = DB.new.connection.exec('SELECT * FROM books')
+      @users = DB.new.connection.exec('SELECT * FROM users')
 
       @header_partial = ERB.new(File.read('app/views/admin/_header.html.erb')).result(binding)
 

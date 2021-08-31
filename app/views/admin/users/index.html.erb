@@ -3,34 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
+  <title>Users</title>
 </head>
 <body>
 
   <%= @header_partial %>
 
-  <h1>Dashboard</h1>
-
-  <h2>Books</h2>
-
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Author</th>
-      </tr>
-    </thead>
-    <% @books.each do |book| %>
-      <tr>
-        <td><%= book['id'] %></td>
-        <td><%= book['name'] %></td>
-        <td><%= book['author'] %></td>
-      </tr>
-    <% end %>
-  </table>
-
-  <h2>Users</h2>
+  <h1>Users</h1>
 
   <table>
     <thead>
@@ -40,6 +19,7 @@
         <th>Last name</th>
         <th>Email</th>
         <th>Admin</th>
+        <th>Delete</th>
       </tr>
     </thead>
     <% @users.each do |user| %>
@@ -49,9 +29,17 @@
         <td><%= user['last_name'] %></td>
         <td><%= user['email'] %></td>
         <td><%= user['admin'] %></td>
+        <td>
+          <form action="/admin/users/delete" method="post">
+            <input type="hidden" name="user_id" value="<%= user['id'] %>">
+            <input type="submit" value="X">
+          </form>
+        </td>
       </tr>
     <% end %>
   </table>
 
+  <a href="/admin/users/new">Add new user</a>
+  
 </body>
 </html>

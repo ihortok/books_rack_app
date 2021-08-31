@@ -40,6 +40,15 @@ class Router
     elsif @method == 'POST' && @path == '/admin/books/delete'
       Admin::BooksController.new(@env).delete(params: Rack::Utils.parse_query(@env['rack.input'].gets))
 
+    elsif @method == 'GET' && @path == '/admin/users'
+      Admin::UsersController.new(@env).index
+    elsif @method == 'GET' && @path == '/admin/users/new'
+      Admin::UsersController.new(@env).new
+    elsif @method == 'POST' && @path == '/admin/users/create'
+      Admin::UsersController.new(@env).create(params: Rack::Utils.parse_query(@env['rack.input'].gets))
+    elsif @method == 'POST' && @path == '/admin/users/delete'
+      Admin::UsersController.new(@env).delete(params: Rack::Utils.parse_query(@env['rack.input'].gets))
+
     else
       [404, { 'Content-Type' => 'text/plain' }, ['404 Not Found']]
     end
