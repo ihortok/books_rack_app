@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require_relative '../../config/db'
+require "#{ENV['APP_FULL_PATH']}/config/database"
+require_relative 'dummy'
 
 module DatabaseSeeds
   # Database Seeds Main

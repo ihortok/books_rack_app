@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
-require_relative '../config/db'
+require "#{ENV['APP_FULL_PATH']}/config/database"
+require_relative 'base_controller'
 
 # Books Controller
 class BooksController < BaseController
   def index
-    headers = { 'Content-Type' => 'text/html' }
+    headers = { 'Content-Type' => 'application/json' }
 
     [
       200,
@@ -17,7 +18,7 @@ class BooksController < BaseController
   private
 
   def index_body
-    books = DB.new.connection.exec('SELECT * FROM books')
+    books = Database.new.connection.execute('SELECT * FROM books')
     books_json = {}
 
     books.each do |book|
