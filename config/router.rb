@@ -11,17 +11,26 @@ class Router
     @request = Rack::Request.new(env)
   end
 
-  def call # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics
+  def call
+    # home
     if request.get? && request.path == '/'
-      HomeController.new(@env).index
+      HomeController.new(env).index
+
+    # books
     elsif request.get? && request.path == '/books'
-      BooksController.new(@env).index
+      BooksController.new(env).index
+    elsif request.get? && %r{^(/books/)\d+$}.match?(request.path)
+      BooksController.new(env).show(request.path.split('/').last)
     elsif request.post? && request.path == '/books'
-      BooksController.new(@env).create(params: request.params)
+      BooksController.new(env).create(request.params)
+
+    # not found
     else
       [404, { 'Content-Type' => 'text/plain' }, ['404 Not Found']]
     end
   end
+  # rubocop:enable Metrics
 
   private
 

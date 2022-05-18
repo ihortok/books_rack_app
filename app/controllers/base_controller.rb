@@ -10,4 +10,10 @@ class BaseController
     @env = env
     @db = Database.new.connection
   end
+
+  private
+
+  def not_found
+    [404, { 'Content-Type' => 'text/plain' }, ['404 Not Found']]
+  end
 end
