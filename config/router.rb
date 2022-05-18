@@ -18,7 +18,7 @@ class Router
       HomeController.new(env).index
 
     # books
-    elsif request.get? && request.path == '/books'
+    elsif request.get? && ['/books', '/books/'].include?(request.path)
       BooksController.new(env).index
     elsif request.get? && %r{^(/books/)\d+$}.match?(request.path)
       BooksController.new(env).show(request.path.split('/').last)
