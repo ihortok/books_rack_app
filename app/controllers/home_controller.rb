@@ -7,7 +7,7 @@ class HomeController < BaseController
   def index
     [
       200,
-      { 'Content-Type' => 'text/plain' },
+      { 'Content-Type' => 'text/html' },
       ['Hello, you\'re at the Home page.']
     ]
   end
