@@ -17,7 +17,7 @@ class Router
     elsif request.get? && request.path == '/books'
       BooksController.new(@env).index
     elsif request.post? && request.path == '/books'
-      BooksController.new(@env).create(params: request_params)
+      BooksController.new(@env).create(params: request.params)
     else
       [404, { 'Content-Type' => 'text/plain' }, ['404 Not Found']]
     end
@@ -26,8 +26,4 @@ class Router
   private
 
   attr_reader :env, :request
-
-  def request_params
-    JSON.parse(request.body.read)
-  end
 end
