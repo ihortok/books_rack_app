@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'sqlite3'
 require "#{ENV['APP_FULL_PATH']}/config/database"
 
 # Makes changes to a database
