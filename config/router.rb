@@ -2,23 +2,32 @@
 
 require 'json'
 
-Dir[File.join(ENV['APP_FULL_PATH'], 'app/controllers/', '*.rb')].each { |file| require_relative file }
+Dir[File.join(ENV['APP_FULL_PATH'], 'app/controllers/', '*.rb')].sort.each { |file| require_relative file }
 
 # Router
 class Router
   def initialize(env)
     @env = env
-    @path = env['PATH_INFO']
-    @method = env['REQUEST_METHOD']
+    @request = Rack::Request.new(env)
   end
 
-  def call
-    if @method == 'GET' && @path == '/'
+  def call # rubocop:disable Metrics/AbcSize
+    if request.get? && request.path == '/'
       HomeController.new(@env).index
-    elsif @method == 'GET' && @path == '/books'
+    elsif request.get? && request.path == '/books'
       BooksController.new(@env).index
+    elsif request.post? && request.path == '/books'
+      BooksController.new(@env).create(params: request_params)
     else
       [404, { 'Content-Type' => 'text/plain' }, ['404 Not Found']]
     end
+  end
+
+  private
+
+  attr_reader :env, :request
+
+  def request_params
+    JSON.parse(request.body.read)
   end
 end
