@@ -9,7 +9,7 @@ class BooksController < BaseController
 
     [
       200,
-      { 'Content-Type' => 'text/html' },
+      { 'content-type' => 'text/html' },
       [ERB.new(File.read('app/views/books/index.html.erb')).result(binding)]
     ]
   end
@@ -26,7 +26,7 @@ class BooksController < BaseController
 
     [
       200,
-      { 'Content-Type' => 'text/html' },
+      { 'content-type' => 'text/html' },
       [ERB.new(File.read('app/views/books/show.html.erb')).result(binding)]
     ]
   end
